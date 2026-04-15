@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Signal Lost | Quoted</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="quoted.png">
+    <style>
+        :root {
+            --color-bg-primary: #0a0a0f;
+            --color-bg-secondary: #12121a;
+            --color-bg-tertiary: #1a1a25;
+            --color-accent-primary: #00f3ff;
+            --color-accent-secondary: #9d4edd;
+            --color-accent-tertiary: #ff006e;
+            --color-text-primary: #e0e0e0;
+            --color-text-secondary: #a0a0b0;
+            --color-text-muted: #606070;
+            --color-border: #252535;
+            --color-glow: rgba(0, 243, 255, 0.7);
+            --shadow-glow: 0 0 15px var(--color-glow);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 3s) infinite ease-in-out;
+        }
+
+        .star.small { width: 1px; height: 1px; }
+        .star.medium { width: 2px; height: 2px; }
+        .star.large { width: 3px; height: 3px; }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.1;
+            animation: nebula-float 20s infinite ease-in-out;
+        }
+
+        .nebula-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--color-accent-primary);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .nebula-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--color-accent-secondary);
+            bottom: 10%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .nebula-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--color-accent-tertiary);
+            top: 50%;
+            left: 80%;
+            animation-delay: -10s;
+        }
+
+        .error-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .error-content {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .error-code {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .error-digit {
+            font-family: 'Orbitron', monospace;
+            font-size: 12rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
+            position: relative;
+            animation: digit-float 4s ease-in-out infinite;
+        }
+
+        .error-digit:nth-child(1) { animation-delay: 0s; }
+        .error-digit:nth-child(3) { animation-delay: 0.2s; }
+
+        .error-icon {
+            font-size: 8rem;
+            margin: 0 2rem;
+            animation: icon-spin 6s linear infinite, icon-float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(157, 78, 221, 0.6));
+            position: relative;
+        }
+
+        .error-icon::before {
+            content: "💭";
+        }
+
+        .error-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+            animation: title-glow 2s ease-in-out infinite alternate;
+        }
+
+        .error-description {
+            font-size: 1.4rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .error-quotes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+            perspective: 1000px;
+        }
+
+        .quote-card {
+            background: linear-gradient(135deg, rgba(18, 18, 26, 0.9), rgba(26, 26, 37, 0.9));
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            animation: card-float 5s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        .quote-card:nth-child(1) { animation-delay: 0s; }
+        .quote-card:nth-child(2) { animation-delay: 1s; }
+
+        .quote-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            border-color: var(--color-accent-primary);
+            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
+        }
+
+        .quote-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--color-accent-primary), var(--color-accent-secondary));
+        }
+
+        .quote-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .quote-card:hover::after {
+            animation: shine 1.5s ease;
+        }
+
+        .quote-text p {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quote-text p::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--color-accent-primary);
+            position: absolute;
+            left: -1.5rem;
+            top: -1rem;
+            opacity: 0.7;
+            font-family: serif;
+        }
+
+        .quote-context {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            font-family: 'Share Tech Mono', monospace;
+            position: relative;
+            z-index: 2;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .error-btn {
+            padding: 1.2rem 2.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.1rem;
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .error-btn.primary {
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: var(--color-bg-primary);
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(0, 243, 255, 0.3);
+        }
+
+        .error-btn.primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 243, 255, 0.5);
+        }
+
+        .error-btn.secondary {
+            background: rgba(18, 18, 26, 0.8);
+            color: var(--color-text-primary);
+            border-color: var(--color-accent-primary);
+        }
+
+        .error-btn.secondary:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.3);
+        }
+
+        .floating-particle {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            animation: particle-float 8s linear infinite;
+        }
+
+        .particle-1 { top: 20%; left: 15%; animation-delay: 0s; }
+        .particle-2 { top: 60%; right: 20%; animation-delay: 2s; }
+        .particle-3 { bottom: 30%; left: 25%; animation-delay: 4s; }
+        .particle-4 { top: 40%; right: 30%; animation-delay: 6s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes nebula-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -20px) scale(1.1); }
+            50% { transform: translate(-15px, 15px) scale(0.9); }
+            75% { transform: translate(10px, 20px) scale(1.05); }
+        }
+
+        @keyframes digit-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes icon-spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes icon-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes title-glow {
+            0% { text-shadow: 0 0 30px rgba(0, 243, 255, 0.4); }
+            100% { text-shadow: 0 0 50px rgba(0, 243, 255, 0.8), 0 0 70px rgba(157, 78, 221, 0.4); }
+        }
+
+        @keyframes card-float {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-15px) rotateX(2deg); }
+        }
+
+        @keyframes shine {
+            0% { opacity: 0; transform: rotate(45deg) translateX(-100%); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: rotate(45deg) translateX(100%); }
+        }
+
+        @keyframes particle-float {
+            0% {
+                opacity: 0;
+                transform: translateY(100px) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .error-digit {
+                font-size: 8rem;
+            }
+
+            .error-icon {
+                font-size: 6rem;
+                margin: 0 1rem;
+            }
+
+            .error-title {
+                font-size: 2.5rem;
+            }
+
+            .error-description {
+                font-size: 1.2rem;
+            }
+
+            .error-quotes {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .error-btn {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .quote-card {
+                padding: 1.5rem;
+            }
+
+            .quote-text p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .error-digit {
+                font-size: 5rem;
+            }
+
+            .error-icon {
+                font-size: 4rem;
+                margin: 0 0.5rem;
+            }
+
+            .error-title {
+                font-size: 2rem;
+            }
+
+            .error-description {
+                font-size: 1rem;
+            }
+
+            .error-container {
+                padding: 1rem;
+            }
+
+            .quote-card {
+                padding: 1.25rem;
+            }
+
+            .quote-text p::before {
+                left: -1rem;
+                top: -0.5rem;
+                font-size: 2rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg" id="cosmicBg"></div>
+
+    <div class="floating-particle particle-1">✨</div>
+    <div class="floating-particle particle-2">💫</div>
+    <div class="floating-particle particle-3">⭐</div>
+    <div class="floating-particle particle-4">🔭</div>
+
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+
+    <div class="error-container">
+        <div class="error-content">
+            <div class="error-code">
+                <span class="error-digit">4</span>
+                <span class="error-icon"></span>
+                <span class="error-digit">4</span>
+            </div>
+
+            <h1 class="error-title">Signal Lost</h1>
+            
+            <p class="error-description">
+                The requested topic does not exist in this library. The signal has been lost.
+            </p>
+
+            <div class="error-quotes">
+                <div class="quote-card">
+                    <div class="quote-text">
+                        <p>"The only true wisdom is in knowing you know nothing."</p>
+                        <div class="quote-context"> - Socrates, Ancient Greece</div>
+                    </div>
+                </div>
+                
+                <div class="quote-card">
+                    <div class="quote-text">
+                        <p>"The struggle itself toward the heights is enough to fill a man's heart. One must imagine Sisyphus happy."</p>
+                        <div class="quote-context"> - Albert Camus, The Myth of Sisyphus</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error-actions">
+                <a href="index.html" class="error-btn primary">Return to Index</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createStarfield() {
+            const cosmicBg = document.getElementById('cosmicBg');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const sizes = ['small', 'medium', 'large'];
+                star.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+                
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                const duration = 2 + Math.random() * 4;
+                const delay = Math.random() * 5;
+                star.style.setProperty('--duration', duration + 's');
+                star.style.animationDelay = delay + 's';
+                
+                cosmicBg.appendChild(star);
+            }
+        }
+
+        function animateParticles() {
+            const particles = document.querySelectorAll('.floating-particle');
+            particles.forEach(particle => {
+                particle.style.left = Math.random() * 80 + 10 + '%';
+                particle.style.animationDuration = (6 + Math.random() * 6) + 's';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createStarfield();
+            animateParticles();
+            
+            document.addEventListener('mousemove', function(e) {
+                const particles = document.querySelectorAll('.star');
+                particles.forEach(star => {
+                    const starRect = star.getBoundingClientRect();
+                    const starX = starRect.left + starRect.width / 2;
+                    const starY = starRect.top + starRect.height / 2;
+                    const distance = Math.sqrt(
+                        Math.pow(e.clientX - starX, 2) + 
+                        Math.pow(e.clientY - starY, 2)
+                    );
+                    
+                    if (distance < 100) {
+                        star.style.transform = `scale(${2 - distance / 100})`;
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
