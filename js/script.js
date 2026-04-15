@@ -253,13 +253,17 @@ function generateNavigation() {
     const container = document.getElementById('navLinksContainer');
     if (!container) return;
     
-    const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+    const path = window.location.pathname;
+    const currentPage = path.split('/').pop().replace('.html', '');
+    
+    const isInTopicsDir = path.includes('/topics/');
+    const linkPrefix = isInTopicsDir ? '' : 'topics/';
     
     let html = '';
     for (const topic of topicsList) {
         const filename = topicToFilename(topic);
         const isActive = (currentPage === filename);
-        html += `<a href="${filename}.html" class="nav-link${isActive ? ' active' : ''}">${topic}</a>`;
+        html += `<a href="${linkPrefix}${filename}.html" class="nav-link${isActive ? ' active' : ''}">${topic}</a>`;
     }
     container.innerHTML = html;
 }
