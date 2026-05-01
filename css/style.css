@@ -697,3 +697,19 @@ body {
         content: none;
     }
   }
+
+.nav-category-heading {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-accent-secondary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  padding: 0 0.8rem;
+}
+
+.nav-category-heading:first-child {
+  margin-top: 0.5rem;   /* less space at the very top */
+}
