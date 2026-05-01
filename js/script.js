@@ -1,68 +1,31 @@
-// ======================================================
-//  QUOTED – THEMATIC SIDEBAR & NAVIGATION
-// ======================================================
-
-/**
- * TOPICS BY CATEGORY
- * Each topic's placement is based on the actual content of its file.
- * To change a topic's category, simply move its string to another array.
- */
 const topicsByCategory = {
-  "Nietzsche": [
-    "Amor Fati",
-    "Will to Power",
-    "Nihilism",
-    "Ressentiment"
-  ],
-  "Stoicism": [
-    "Stoicism",
-    "Moderation",
-    "Simplicity"
-  ],
-  "Existentialism": [
-    "Existentialism",
-    "Absurdism",
-    "Freedom",
-    "Purpose",
-    "Life",
-    "Solipsism"
-  ],
-  "Consciousness & Mind": [
+  "Mind & Consciousness": [
+    "Autism",
+    "Mental Health",
+    "Dopamine",
     "Consciousness",
     "Perception",
     "Attention",
     "Metacognition",
     "Intuition",
     "Memory",
-    "Dopamine",
-    "Processing Delay",
-    "Mental Health",
-    "Autism"
-  ],
-  "Reality & Metaphysics": [
-    "Determinism",
-    "Simulation Theory",
-    "Quantum Mechanics",
-    "Chaos Theory",
-    "Fractals",
-    "Worldview",
-    "The Map is Not the Territory",
-    "Paradoxes"
+    "Processing Delay"
   ],
   "Knowledge & Reason": [
+    "Satisficing",
+    "Applied Knowledge",
     "Epistemology",
     "Truth",
     "Skepticism",
+    "Beliefs",
     "Logic",
     "Rationality",
     "Critical Thinking",
-    "Applied Knowledge",
     "Heuristics",
     "Fallacies",
     "Statistics",
     "Curse of Knowledge",
-    "Goodhart's Law",
-    "Satisficing"
+    "Goodhart's Law"
   ],
   "Cognitive Biases": [
     "Confirmation Bias",
@@ -70,7 +33,6 @@ const topicsByCategory = {
     "Motivated Reasoning",
     "Denial",
     "The Backfire Effect",
-    "Beliefs",
     "Apophenia (False Patterns)",
     "Dunning-Kruger Effect",
     "Fundamental Attribution Error",
@@ -86,58 +48,61 @@ const topicsByCategory = {
   "Psychology & Self": [
     "Self-Awareness",
     "Self-Sabotage",
-    "Victim Mentality",
-    "Narcissism",
-    "The Narcissist Filter",
-    "The Narcissist's Playbook",
-    "The Opposite of Narcissism",
+    "Fear",
+    "Pride",
+    "Scars and Wounds",
+    "Scars as Evidence",
+    "Substances",
     "The Addict Archetype",
     "The Avoider Archetype",
     "The Rescuer Archetype",
     "The Victim Archetype",
-    "Scars and Wounds",
-    "Scars as Evidence",
-    "Fear",
-    "Pride",
-    "Conformity",
-    "Herds",
-    "Will to Stupidity",
-    "Substances",
+    "Victim Mentality",
     "Violence"
   ],
-  "Growth & Discipline": [
+  "Narcissism": [
+    "Narcissism",
+    "The Narcissist Filter",
+    "The Narcissist's Playbook",
+    "The Opposite of Narcissism",
+    "Gray Rock & No Contact",
+    "Triangulation"
+  ],
+  "Character & Resilience": [
     "Discipline",
-    "Consistency",
     "Habits",
+    "Consistency",
     "Courage",
     "Resilience",
     "Failure",
     "Success",
     "Improving",
+    "Patience"
+  ],
+  "Productivity & Execution": [
     "Goal Setting",
+    "Priorities",
     "Commitment",
     "Execution",
-    "Patience",
     "Focus & Concentration",
     "Productivity",
-    "Priorities",
+    "Procrastination",
     "Time",
     "Stop-Loss",
     "Speed and Direction",
     "Starting & Finishing",
     "Quitting",
     "Perfectionism",
-    "Minimum Viable Day",
-    "Procrastination"
+    "Minimum Viable Day"
   ],
   "Mastery & Skill": [
-    "Mastery",
-    "Skill Development",
     "Learning",
     "Education",
     "Reading",
-    "Leverage",
+    "Skill Development",
+    "Mastery",
     "Fundamentals",
+    "Leverage",
     "Creativity",
     "Ideas",
     "Inspiration",
@@ -149,17 +114,21 @@ const topicsByCategory = {
     "Manna Protocol",
     "Play / Unstructured Time"
   ],
-  "Health & Body": [
+  "Physical Health": [
     "Physical Fitness",
     "Sleep",
-    "Stress",
+    "Stress"
+  ],
+  "Lifestyle": [
+    "Lifestyle",
+    "Travel and Adventure",
+    "Minimalism"
+  ],
+  "Spaces & Wellness": [
     "Digital Wellness",
     "Sensory Sanctuary",
-    "Minimalism",
-    "Lifestyle",
     "Living Space",
     "Home",
-    "Travel and Adventure",
     "Environment",
     "Sustainability"
   ],
@@ -168,28 +137,18 @@ const topicsByCategory = {
     "Communication",
     "Conflict",
     "Forgiveness",
-    "Honesty",
-    "Humility",
-    "Empathy",
     "Envy",
     "Jealousy",
-    "Respect",
-    "Tolerance",
-    "Loyalty",
-    "Gratitude",
-    "Generosity",
-    "Community & Legacy",
-    "Mentorship",
-    "Networking",
-    "Loneliness vs Solitude",
-    "Gray Rock & No Contact",
-    "Triangulation",
     "Friends",
     "Family",
     "Parenting",
     "Fatherhood",
     "Marriage",
-    "Masculinity"
+    "Masculinity",
+    "Community & Legacy",
+    "Mentorship",
+    "Networking",
+    "Loneliness vs Solitude"
   ],
   "Life Stages": [
     "Growing Old",
@@ -197,20 +156,46 @@ const topicsByCategory = {
     "Pain",
     "The Past"
   ],
-  "Society & Culture": [
+  "Ethics & Virtues": [
+    "Ethics",
+    "Morality",
+    "Integrity & Reputation",
+    "Responsibility",
+    "Leadership",
+    "Power",
+    "Empathy",
+    "Honesty",
+    "Humility",
+    "Respect",
+    "Tolerance",
+    "Loyalty",
+    "Gratitude",
+    "Generosity"
+  ],
+  "Spirituality & Religion": [
+    "Spirituality",
+    "Religion",
+    "Faith",
+    "Taoism",
+    "Conformity",
+    "Herds"
+  ],
+  "Society, Politics & Culture": [
     "Society",
+    "Social Issues",
     "History",
     "Politics",
     "Democracy",
     "Bureaucracy",
     "Regulatory Capture",
     "The Iron Law of Oligarchy",
-    "Social Issues",
     "Class",
     "Inequality",
     "Justice",
     "Entertainment",
-    "Consumerism",
+    "Consumerism"
+  ],
+  "Economics, Work & Finance": [
     "Business",
     "Career",
     "Hiring and Being Hired",
@@ -220,28 +205,14 @@ const topicsByCategory = {
     "Inflation",
     "Compound Interest"
   ],
-  "Ethics & Morality": [
-    "Ethics",
-    "Morality",
-    "Integrity & Reputation",
-    "Responsibility",
-    "Leadership",
-    "Power"
-  ],
-  "Spirituality & Religion": [
-    "Spirituality",
-    "Religion",
-    "Faith",
-    "Taoism"
-  ],
   "Technology & Science": [
     "Artificial Intelligence",
     "Futurism",
     "Singularity",
     "Transhumanism",
     "Programming",
-    "C Programming Language",
     "Algorithms",
+    "C Programming Language",
     "Cryptography",
     "Torvalds",
     "Pure Mathematics",
@@ -264,13 +235,39 @@ const topicsByCategory = {
     "Luck vs Risk",
     "Long-Term Thinking",
     "Planning and Strategy"
+  ],
+  "Nietzsche": [
+    "Amor Fati",
+    "Will to Power",
+    "Nihilism",
+    "Ressentiment",
+    "Will to Stupidity"
+  ],
+  "Stoicism": [
+    "Stoicism",
+    "Moderation",
+    "Simplicity"
+  ],
+  "Existentialism": [
+    "Existentialism",
+    "Absurdism",
+    "Freedom",
+    "Purpose",
+    "Life",
+    "Solipsism"
+  ],
+  "Reality & Metaphysics": [
+    "Determinism",
+    "Simulation Theory",
+    "Quantum Mechanics",
+    "Chaos Theory",
+    "Fractals",
+    "Worldview",
+    "The Map is Not the Territory",
+    "Paradoxes"
   ]
 };
 
-/**
- * Convert a topic name to its corresponding filename.
- * (Matches your existing file naming convention.)
- */
 function topicToFilename(topic) {
   return topic
     .toLowerCase()
@@ -279,9 +276,6 @@ function topicToFilename(topic) {
     .replace(/[^a-z0-9-]/g, '');
 }
 
-/**
- * Build the thematic sidebar navigation.
- */
 function generateNavigation() {
   const container = document.getElementById('navLinksContainer');
   if (!container) return;
@@ -294,7 +288,6 @@ function generateNavigation() {
   let html = '';
 
   for (const [category, topics] of Object.entries(topicsByCategory)) {
-    // Short, uppercase heading for each category
     html += `<div class="nav-category-heading">${category}</div>`;
 
     for (const topic of topics) {
@@ -308,9 +301,6 @@ function generateNavigation() {
   container.innerHTML = html;
 }
 
-// ======================================================
-//  MOBILE MENU TOGGLE (if your HTML uses these IDs)
-// ======================================================
 const navToggle = document.getElementById('navToggle');
 const navClose = document.getElementById('navClose');
 const sideNav = document.getElementById('sideNav');
@@ -327,7 +317,6 @@ if (navClose && sideNav) {
   });
 }
 
-// Close sidebar when clicking a link (optional, for mobile)
 if (sideNav) {
   sideNav.addEventListener('click', (e) => {
     if (e.target.classList.contains('nav-link')) {
@@ -336,9 +325,6 @@ if (sideNav) {
   });
 }
 
-// ======================================================
-//  SCROLL INDICATOR (for the top progress bar)
-// ======================================================
 window.addEventListener('scroll', () => {
   const scrollIndicator = document.getElementById('scrollIndicator');
   if (!scrollIndicator) return;
@@ -349,9 +335,6 @@ window.addEventListener('scroll', () => {
   scrollIndicator.style.width = scrollPercent + '%';
 });
 
-// ======================================================
-//  INITIALIZE ON PAGE LOAD
-// ======================================================
 document.addEventListener('DOMContentLoaded', () => {
   generateNavigation();
 });
