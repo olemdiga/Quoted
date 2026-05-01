@@ -700,16 +700,16 @@ body {
 
 .nav-category-heading {
   font-family: 'Orbitron', monospace;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   color: var(--color-accent-secondary);
   margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   padding: 0 0.8rem;
+  opacity: 0.8;
 }
-
 .nav-category-heading:first-child {
-  margin-top: 0.5rem;   /* less space at the very top */
+  margin-top: 0.4rem;
 }
