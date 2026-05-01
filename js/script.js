@@ -288,7 +288,9 @@ function generateNavigation() {
   let html = '';
 
   for (const [category, topics] of Object.entries(topicsByCategory)) {
+    html += `<div class="nav-category">`;
     html += `<div class="nav-category-heading">${category}</div>`;
+    html += `<div class="nav-category-list">`;
 
     for (const topic of topics) {
       const filename = topicToFilename(topic);
@@ -296,9 +298,40 @@ function generateNavigation() {
       html += `<a href="${linkPrefix}${filename}.html"
                 class="nav-link${isActive ? ' active' : ''}">${topic}</a>`;
     }
+
+    html += `</div></div>`;
   }
 
   container.innerHTML = html;
+
+  // dropdown toggle: open one, close others
+  const headings = container.querySelectorAll('.nav-category-heading');
+  headings.forEach(heading => {
+    heading.addEventListener('click', () => {
+      const categoryDiv = heading.parentElement;
+      const list = categoryDiv.querySelector('.nav-category-list');
+      const isOpen = list.classList.contains('open');
+
+      // close all
+      container.querySelectorAll('.nav-category-list.open').forEach(el => {
+        el.classList.remove('open');
+      });
+
+      // toggle clicked
+      if (!isOpen) {
+        list.classList.add('open');
+      }
+    });
+  });
+
+  // auto-open the category containing the active link
+  const activeLink = container.querySelector('.nav-link.active');
+  if (activeLink) {
+    const parentList = activeLink.closest('.nav-category-list');
+    if (parentList) {
+      parentList.classList.add('open');
+    }
+  }
 }
 
 const navToggle = document.getElementById('navToggle');
