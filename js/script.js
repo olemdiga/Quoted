@@ -334,30 +334,36 @@ function generateNavigation() {
   }
 }
 
+// –––––––––––––––––––––––––––––––––––––
+// Mobile side‑nav toggle (FIXED)
+// –––––––––––––––––––––––––––––––––––––
 const navToggle = document.getElementById('navToggle');
 const navClose = document.getElementById('navClose');
 const sideNav = document.getElementById('sideNav');
 
 if (navToggle && sideNav) {
   navToggle.addEventListener('click', () => {
-    sideNav.classList.add('open');
+    sideNav.classList.add('active');   // ← was 'open', now matches CSS
   });
 }
 
 if (navClose && sideNav) {
   navClose.addEventListener('click', () => {
-    sideNav.classList.remove('open');
+    sideNav.classList.remove('active'); // ← was 'open'
   });
 }
 
 if (sideNav) {
   sideNav.addEventListener('click', (e) => {
     if (e.target.classList.contains('nav-link')) {
-      sideNav.classList.remove('open');
+      sideNav.classList.remove('active'); // ← was 'open'
     }
   });
 }
 
+// –––––––––––––––––––––––––––––––––––––
+// Scroll indicator
+// –––––––––––––––––––––––––––––––––––––
 window.addEventListener('scroll', () => {
   const scrollIndicator = document.getElementById('scrollIndicator');
   if (!scrollIndicator) return;
@@ -368,6 +374,9 @@ window.addEventListener('scroll', () => {
   scrollIndicator.style.width = scrollPercent + '%';
 });
 
+// –––––––––––––––––––––––––––––––––––––
+// Initialize on page load
+// –––––––––––––––––––––––––––––––––––––
 document.addEventListener('DOMContentLoaded', () => {
   generateNavigation();
 });
