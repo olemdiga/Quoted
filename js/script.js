@@ -335,28 +335,28 @@ function generateNavigation() {
 }
 
 // –––––––––––––––––––––––––––––––––––––
-// Mobile side‑nav toggle (FIXED)
+// Mobile side‑nav toggle (FIX: IDs match HTML)
 // –––––––––––––––––––––––––––––––––––––
-const navToggle = document.getElementById('navToggle');
-const navClose = document.getElementById('navClose');
+const menuToggle = document.getElementById('menuToggle');
+const closeMenu = document.getElementById('closeMenu');
 const sideNav = document.getElementById('sideNav');
 
-if (navToggle && sideNav) {
-  navToggle.addEventListener('click', () => {
-    sideNav.classList.add('active');   // ← was 'open', now matches CSS
+if (menuToggle && sideNav) {
+  menuToggle.addEventListener('click', () => {
+    sideNav.classList.add('active');
   });
 }
 
-if (navClose && sideNav) {
-  navClose.addEventListener('click', () => {
-    sideNav.classList.remove('active'); // ← was 'open'
+if (closeMenu && sideNav) {
+  closeMenu.addEventListener('click', () => {
+    sideNav.classList.remove('active');
   });
 }
 
 if (sideNav) {
   sideNav.addEventListener('click', (e) => {
     if (e.target.classList.contains('nav-link')) {
-      sideNav.classList.remove('active'); // ← was 'open'
+      sideNav.classList.remove('active');
     }
   });
 }
